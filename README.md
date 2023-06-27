@@ -4,7 +4,7 @@ FLinks is a comprehensive crawling tool that combines efficient active and passi
 ```bash
 git clone https://github.com/Q0120S/FLinks.git
 cd FLinks
-chomd +x install.sh
+chmod +x install.sh
 ./install.sh
 flinks
 ```
