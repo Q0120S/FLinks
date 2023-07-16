@@ -152,24 +152,24 @@ if "$run_passive_gospider"; then
     if [[ -n "$url" ]]; then
         if [[ -n "$output_file" ]]; then
             sudo -- sh -c "echo '127.0.0.1 "$url"' >> /etc/hosts"
-            echo https://"$url" | gospider --other-source --include-subs --subs --quiet | grep -Eiv '\.(css|jpg|jpeg|png|svg|img|gif|exe|mp4|flv|pdf|doc|ogv|webm|wmv|webp|mov|mp3|m4a|m4p|ppt|pptx|scss|tif|tiff|ttf|otf|woff|woff2|bmp|ico|eot|htc|swf|rtf|image|rf)' | sort -u | anew "$output_file"
+            echo https://"$url" | gospider --other-source --include-subs --subs --quiet | grep -Eiv '\.(css|jpg|jpeg|png|svg|img|gif|exe|mp4|flv|pdf|doc|ogv|webm|wmv|webp|mov|mp3|m4a|m4p|ppt|pptx|scss|tif|tiff|ttf|otf|woff|woff2|bmp|ico|eot|htc|swf|rtf|image|rf)' | sort -u  | grep -Eo 'https?://[^ ]+' | sed 's/]$//' | anew "$output_file"
             sudo -- sh -c "sed -i '/127.0.0.1 "$url"/d' /etc/hosts"
         else
             sudo -- sh -c "echo '127.0.0.1 "$url"' >> /etc/hosts"
-            echo https://"$url" | gospider --other-source --include-subs --subs --quiet | grep -Eiv '\.(css|jpg|jpeg|png|svg|img|gif|exe|mp4|flv|pdf|doc|ogv|webm|wmv|webp|mov|mp3|m4a|m4p|ppt|pptx|scss|tif|tiff|ttf|otf|woff|woff2|bmp|ico|eot|htc|swf|rtf|image|rf)' | sort -u
+            echo https://"$url" | gospider --other-source --include-subs --subs --quiet | grep -Eiv '\.(css|jpg|jpeg|png|svg|img|gif|exe|mp4|flv|pdf|doc|ogv|webm|wmv|webp|mov|mp3|m4a|m4p|ppt|pptx|scss|tif|tiff|ttf|otf|woff|woff2|bmp|ico|eot|htc|swf|rtf|image|rf)' | sort -u | grep -Eo 'https?://[^ ]+' | sed 's/]$//'
             sudo -- sh -c "sed -i '/127.0.0.1 "$url"/d' /etc/hosts"
         fi
     else
         if [[ -n "$output_file" ]]; then
             while IFS= read -r line; do
                 sudo -- sh -c "echo '127.0.0.1 $line' >> /etc/hosts"
-                echo "https://$line" | gospider --other-source --include-subs --subs --quiet | grep -Eiv '\.(css|jpg|jpeg|png|svg|img|gif|exe|mp4|flv|pdf|doc|ogv|webm|wmv|webp|mov|mp3|m4a|m4p|ppt|pptx|scss|tif|tiff|ttf|otf|woff|woff2|bmp|ico|eot|htc|swf|rtf|image|rf)' | sort -u | anew "$output_file"
+                echo "https://$line" | gospider --other-source --include-subs --subs --quiet | grep -Eiv '\.(css|jpg|jpeg|png|svg|img|gif|exe|mp4|flv|pdf|doc|ogv|webm|wmv|webp|mov|mp3|m4a|m4p|ppt|pptx|scss|tif|tiff|ttf|otf|woff|woff2|bmp|ico|eot|htc|swf|rtf|image|rf)' | sort -u | grep -Eo 'https?://[^ ]+' | sed 's/]$//' | anew "$output_file"
                 sudo -- sh -c "sed -i '/127.0.0.1 $line/d' /etc/hosts"
             done < "$file"
         else
             while IFS= read -r line; do
                 sudo -- sh -c "echo '127.0.0.1 $line' >> /etc/hosts"
-                echo "https://$line" | gospider --other-source --include-subs --subs --quiet | grep -Eiv '\.(css|jpg|jpeg|png|svg|img|gif|exe|mp4|flv|pdf|doc|ogv|webm|wmv|webp|mov|mp3|m4a|m4p|ppt|pptx|scss|tif|tiff|ttf|otf|woff|woff2|bmp|ico|eot|htc|swf|rtf|image|rf)' | sort -u
+                echo "https://$line" | gospider --other-source --include-subs --subs --quiet | grep -Eiv '\.(css|jpg|jpeg|png|svg|img|gif|exe|mp4|flv|pdf|doc|ogv|webm|wmv|webp|mov|mp3|m4a|m4p|ppt|pptx|scss|tif|tiff|ttf|otf|woff|woff2|bmp|ico|eot|htc|swf|rtf|image|rf)' | sort -u | grep -Eo 'https?://[^ ]+' | sed 's/]$//'
                 sudo -- sh -c "sed -i '/127.0.0.1 $line/d' /etc/hosts"
             done < "$file"
         fi
